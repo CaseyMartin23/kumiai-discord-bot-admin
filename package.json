@@ -1,0 +1,38 @@
+{
+  "name": "match-maker",
+  "version": "1.0.0",
+  "description": "match-maker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Aasir Valji",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.0",
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.0",
+    "helmet": "^3.23.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.12",
+    "path": "^0.12.7",
+    "react-reveal": "^1.2.2",
+    "twilio": "^3.55.0",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
+  }
+}

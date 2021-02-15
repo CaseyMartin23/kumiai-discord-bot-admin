@@ -1,0 +1,3 @@
+-create support email
+-mobile responsive
+-redirect user once verified
