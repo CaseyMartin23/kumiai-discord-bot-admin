@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  REGISTER_FAIL,
   AUTH_ERROR,
   USER_LOADED,
   LOGIN_FAIL,
@@ -10,7 +9,7 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
-const baseUrl = 'https://match-app-node.herokuapp.com'
+const baseUrl = 'http://localhost:5000'
 
 export const loadUser = () => async (dispatch) => {
   //Set token from localStorage in browser
@@ -33,43 +32,14 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-//Register User
-export const register = (name, email, password) => async (dispatch) => {
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify({ name, email, password });
-
-  try {
-    const res = await axios.post(`${baseUrl}/api/users`, body, config);
-    // dispatch({
-    //   type: REGISTER_SUCCESS,
-    // });
-  } catch (err) {
-    console.log(err.response)
-    var message;
-    message = !err.response.data.message ? 'Server error. Please try again later.' : err.response.data.message
-    dispatch(
-      setAlert(message, 'info')
-    );
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
-
 //Login User
-export const login = (email, password) => async (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({ username, password });
   try {
     const res = await axios.post(`${baseUrl}/api/auth`, body, config);
     dispatch({

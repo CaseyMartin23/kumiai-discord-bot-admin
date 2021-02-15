@@ -1,33 +1,33 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
-  name: {
+const User = new mongoose.Schema({
+  discordId: {
     type: String,
-    required: true,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+  points: {
+    type: Number,
+    default: 0
   },
-  password: {
-    type: String,
-    required: true,
+  coins: {
+    type: Number,
+    default: 0
   },
-  verified: {
-    type: Boolean,
-    required: true
-  },
-  modified: {
-    type: String,
-    required: true
-  },
+  completedQuests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'QuestTemplate',
+    }
+  ],
+  completedAchievements: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Achievement',
+    }
+  ],
   created: {
     type: Date,
     default: Date.now,
   },
 });
 
-const User = mongoose.model("User", UserSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', User);

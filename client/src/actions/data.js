@@ -6,12 +6,12 @@ import {
     UNSUBMIT_SUCCESS
 } from './types';
 
-const baseUrl = 'https://match-app-node.herokuapp.com'
+const baseUrl = 'http://localhost:5000'
 
-export const getData = () => async (dispatch) => {
+export const getData = (type) => async (dispatch) => {
   //check to see if user is valid
   try {
-    const res = await axios.get(`${baseUrl}/api/profile`);
+    const res = await axios.post(`${baseUrl}/api/data`, { type });
     dispatch({
       type: DATA_SUCCESS,
       payload: res.data,
@@ -20,22 +20,6 @@ export const getData = () => async (dispatch) => {
     console.log(err)
     dispatch({
       type: CLEAR_DATA,
-    });
-  }
-};
-
-export const unsubmit = () => async (dispatch) => {
-  //check to see if user is valid
-  try {
-    const res = await axios.get(`${baseUrl}/api/profile/unsubmit`);
-    dispatch({
-      type: UNSUBMIT_SUCCESS,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err)
-    dispatch({
-      type: UNSUBMIT_FAIL,
     });
   }
 };

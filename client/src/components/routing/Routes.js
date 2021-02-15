@@ -16,7 +16,7 @@ const Routes = () => {
       <DynamicAlert />
       <Switch>
         <Route exact path="/" component={Login} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </Switch>
     </>
   );

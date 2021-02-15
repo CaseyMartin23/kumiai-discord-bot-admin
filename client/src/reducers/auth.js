@@ -1,12 +1,9 @@
 import {
-  REGISTER_FAIL,
-  REGISTER_SUCCESS,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  ACCOUNT_DELETED,
   USER_DELETED,
 } from '../actions/types';
 
@@ -27,7 +24,6 @@ export default function (state = initialState, action) {
         user: payload,
         loading: false,
       };
-    case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token); //sets token from backend to client storage
       return {
@@ -36,12 +32,6 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    case REGISTER_SUCCESS:
-        return {
-          ...state,
-          loading: false,
-        };
-    case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:

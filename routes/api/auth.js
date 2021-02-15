@@ -5,18 +5,17 @@ const auth = require('../../middleware/auth');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const path = require('path');
+const Admin = require('../../models/Admin');
 
 // Load env vars
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
-const User = require('../../models/User');
 
 // get user info
 router.get('/', auth, async (req, res) => {
   try {
     //get user information from mongo with this decoded id and send back everything except password
-    const user = await User.findById(req.user.id).select('-password');
-    res.json(user);
+    const admin = await Admin.findById(req.user.id).select('-password');
+    res.json(admin);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
@@ -50,7 +49,7 @@ router.post(
           id: admin.id,
         },
       };
-
+      console.log(admin)
       jwt.sign(
         payload,
         process.env.jwtSecret,
