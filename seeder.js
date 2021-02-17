@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 // const QuestTemplate = require('./models/QuestTemplate');
 // const Admin = require('./models/Admin');
 const Passive = require('./models/Passive');
+const Rank = require('./models/Rank');
 
-mongoose.connect('', {
+mongoose.connect('mongodb+srv://tysin:tysin@cluster0.dx5ui.mongodb.net/<dbname>?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: true,
@@ -14,10 +15,8 @@ mongoose.connect('', {
 });
 
 //read file synchronously (till read completion)
-const achievements = JSON.parse(fs.readFileSync(`${__dirname}/data/a.json`));
-const quests = JSON.parse(fs.readFileSync(`${__dirname}/data/q.json`));
-const admin = JSON.parse(fs.readFileSync(`${__dirname}/data/admin.json`));
-const passive = JSON.parse(fs.readFileSync(`${__dirname}/data/passive.json`));
+const ranks = JSON.parse(fs.readFileSync(`${__dirname}/_data/ranks.json`));
+const passive = JSON.parse(fs.readFileSync(`${__dirname}/_data/passive.json`));
 
 const importData = async () => {
   try {
@@ -28,10 +27,13 @@ const importData = async () => {
     // await QuestTemplate.create(quests);
 
     // await Admin.deleteMany();
-    // await Admin.create(admin)
+    // await Admin.create(admin);
 
-    await Passive.deleteMany();
-    await Passive.create(passive);
+    await Rank.deleteMany();
+    await Rank.create(ranks);
+
+    // await Passive.deleteMany();
+    // await Passive.create(passive);
 
     console.log('Dummy data created');
     process.exit();

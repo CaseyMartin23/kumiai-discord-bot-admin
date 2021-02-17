@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Receive points/coins for chatting",
+        "description": "User gets between 1-5 (inclusive) XP/Coins for every mintue of chatting."
+    },
+    {
+        "name": "Receive points/coins for streaming",
+        "description": "User gets 100 XP/Coins for every mintue of streaming."
+    },
+    {
+        "name": "Rank assignment",
+        "description": "Bot assigns roles based on how many points a user has."
+    },
+    {
+        "name": "All quests completed",
+        "description": "User checks every 10 minutes to see if a user has completed all the possible quests. If they have, give achievement."
+    }
+]
