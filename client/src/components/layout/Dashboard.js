@@ -130,7 +130,7 @@ const Dashboard = ({ getData, updateData, deleteData, data: { data, loading }, c
       <Option value="quests">Quests</Option>
       <Option value="achievements">Achievements</Option>
       <Option value="users">Users</Option>
-      <Option value="passive">Passive quests</Option>
+      <Option value="passive">Passive Tasks</Option>
     </Select>
     </div>
     
@@ -200,6 +200,7 @@ const Dashboard = ({ getData, updateData, deleteData, data: { data, loading }, c
         {data.map((d) => {
           return (
             <div className='achievement-item'>
+              {d.type && <div> <p>Achievement Type: {d.type} </p> </div>}
               {d.name && <div> <p>Achievement Name: </p> <Input placeholder="Achievement Name" onChange={handleChange} value={values[`${selectValue}-${d.type}-name`]} name={`${selectValue}-${d.type}-name`} /> </div>}
               {d.channelId && <div> <p>Achievement Channel ID: </p> <Input placeholder="Achievement Channel ID" onChange={handleChange} value={values[`${selectValue}-${d.type}-channelId`]} name={`${selectValue}-${d.type}-channelId`} /> </div>}
               {d.message && <div> <p>Achievement Message: </p> <Input placeholder="Achievement Message" onChange={handleChange} value={values[`${selectValue}-${d.type}-message`]} name={`${selectValue}-${d.type}-message`} /> </div>}

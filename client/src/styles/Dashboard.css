@@ -17,7 +17,7 @@
 }
 
 .dashboard-content-wrapper h4{
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .quest-item, .achievement-item, .user-item, .rank-item {
@@ -35,8 +35,8 @@
     margin: auto 2rem;
 }
 
-.create-rank-container{
-    
+.create-rank-container > input {
+    margin: .5rem auto;
 }
 
 .ant-delete-button{
