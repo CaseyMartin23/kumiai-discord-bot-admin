@@ -8,7 +8,7 @@ import {
     DATA_CREATE
 } from './types';
 
-const baseUrl = 'http://localhost:5000'
+const baseUrl = ''
 
 export const getData = (type) => async (dispatch) => {
   //check to see if user is valid

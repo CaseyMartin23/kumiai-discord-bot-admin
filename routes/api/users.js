@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const axios = require('axios');
 const Admin = require('../../models/Admin');
-const baseUrl = 'http://localhost:5000'
+const baseUrl = ''
  
 module.exports = router;
  

@@ -9,7 +9,7 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
-const baseUrl = 'http://localhost:5000'
+const baseUrl = ''
 
 export const loadUser = () => async (dispatch) => {
   //Set token from localStorage in browser
