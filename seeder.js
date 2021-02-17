@@ -1,46 +1,39 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
-const colors = require('colors')
-require('dotenv').config();
 
+// const Achievement = require('./models/Achievement');
+// const QuestTemplate = require('./models/QuestTemplate');
+// const Admin = require('./models/Admin');
+const Passive = require('./models/Passive');
 
-// Load models
-const User = require('./models/User');
-const Profile = require('./models/Profile');
-
-// Connect to DB
-mongoose.connect(process.env.mongoURI, {
+mongoose.connect('', {
   useNewUrlParser: true,
   useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
+  useFindAndModify: true,
+  useUnifiedTopology: true,
 });
 
-// Read JSON files
-const profiles = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/profiles.json`, 'utf-8')
-);
+//read file synchronously (till read completion)
+const achievements = JSON.parse(fs.readFileSync(`${__dirname}/data/a.json`));
+const quests = JSON.parse(fs.readFileSync(`${__dirname}/data/q.json`));
+const admin = JSON.parse(fs.readFileSync(`${__dirname}/data/admin.json`));
+const passive = JSON.parse(fs.readFileSync(`${__dirname}/data/passive.json`));
 
-// const users = JSON.parse(
-//     fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
-//   );
-
-// Import into DB
 const importData = async () => {
   try {
-    await Profile.create(profiles);
-    console.log('Data Imported...'.green.inverse);
-    process.exit();
-  } catch (err) {
-    console.error(err);
-  }
-};
+    // await Achievement.deleteMany();
+    // await Achievement.create(achievements);
 
-// Delete data
-const deleteData = async () => {
-  try {
-    await Profile.deleteMany();
-    console.log('Data Destroyed...'.red.inverse);
+    // await QuestTemplate.deleteMany();
+    // await QuestTemplate.create(quests);
+
+    // await Admin.deleteMany();
+    // await Admin.create(admin)
+
+    await Passive.deleteMany();
+    await Passive.create(passive);
+
+    console.log('Dummy data created');
     process.exit();
   } catch (err) {
     console.error(err);
@@ -49,6 +42,4 @@ const deleteData = async () => {
 
 if (process.argv[2] === '-i') {
   importData();
-} else if (process.argv[2] === '-d') {
-  deleteData();
 }

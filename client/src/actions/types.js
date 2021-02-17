@@ -1,5 +1,6 @@
 //DATA ACTIONS
 export const DATA_SUCCESS = 'DATA_SUCCESS';
+export const DATA_UPDATE = 'DATA_UPDATE';
 export const DATA_ERROR = 'DATA_ERROR';
 export const CLEAR_DATA = 'CLEAR_DATA';
 export const UNSUBMIT_SUCCESS = 'UNSUBMIT_SUCCESS';
