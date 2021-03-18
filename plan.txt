@@ -1,11 +1,8 @@
--create support email
--mobile responsive
--redirect user once verified
+This is the website to manage the discord bot
 
-----------------------------------
+To run this project do the following:
+1) Run this in the root directory to install all dependencies: npm install
+2) Run this in the root directory to start up the backend server: node server.js
+3) Run this in the client folder to start up the front end server: npm run start
 
-- Initially, get all quests information
-- User can change the information fetched via the select option
-- On data change, request is made to backend and updated
-- Other section that shows passive content
-
+** Make sure you have the mongoURI and jwtSecret in the .env file prior to running the project.
