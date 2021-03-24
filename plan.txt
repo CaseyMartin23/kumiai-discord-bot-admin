@@ -5,4 +5,4 @@ To run this project do the following:
 2) Run this in the root directory to start up the backend server: node server.js
 3) Run this in the client folder to start up the front end server: npm run start
 
-** Make sure you have the mongoURI and jwtSecret in the .env file prior to running the project.
+** Make sure you have the DB_URI and JWT_SECRET in the .env file prior to running the project.
