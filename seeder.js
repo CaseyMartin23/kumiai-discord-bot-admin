@@ -1,13 +1,17 @@
-const fs = require('fs');
-const mongoose = require('mongoose');
+const fs = require("fs");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 // const Achievement = require('./models/Achievement');
 // const QuestTemplate = require('./models/QuestTemplate');
 // const Admin = require('./models/Admin');
-const Passive = require('./models/Passive');
-const Rank = require('./models/Rank');
+const Passive = require("./models/Passive");
+const Rank = require("./models/Rank");
 
-mongoose.connect('mongodb+srv://tysin:tysin@cluster0.dx5ui.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+// Load env vars
+dotenv.config({ path: path.resolve(__dirname, ".env") });
+
+mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: true,
@@ -35,13 +39,13 @@ const importData = async () => {
     // await Passive.deleteMany();
     // await Passive.create(passive);
 
-    console.log('Dummy data created');
+    console.log("Dummy data created");
     process.exit();
   } catch (err) {
     console.error(err);
   }
 };
 
-if (process.argv[2] === '-i') {
+if (process.argv[2] === "-i") {
   importData();
 }
