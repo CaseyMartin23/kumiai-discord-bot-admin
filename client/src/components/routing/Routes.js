@@ -1,18 +1,18 @@
 //general imports
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
 //Component imports
-import Login from '../auth/Login';
-import PrivateRoute from './PrivateRoute';
-import DynamicAlert from '../layout/Alert';
-import Navbar from '../layout/Navbar';
-import Dashboard from '../layout/Dashboard';
+import Login from "../auth/Login";
+import PrivateRoute from "./PrivateRoute";
+import DynamicAlert from "../layout/Alert";
+import Navbar from "../layout/Navbar";
+import Dashboard from "../layout/Dashboard";
 
 const Routes = () => {
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar />
       <DynamicAlert />
       <Switch>
         <Route exact path="/" component={Login} />

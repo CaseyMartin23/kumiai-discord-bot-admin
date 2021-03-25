@@ -4,7 +4,7 @@
   "description": "match-maker",
   "main": "server.js",
   "scripts": {
-    "prod": "NODE_ENV=production npm start",
+    "prod": "NODE_ENV=production npm run server",
     "build": "cd ./client && npm run build",
     "start": "node server.js",
     "server": "nodemon server.js",

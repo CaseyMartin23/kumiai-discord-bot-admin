@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   AUTH_ERROR,
   USER_LOADED,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  CLEAR_DATA
-} from './types';
-import { setAlert } from './alert';
-import setAuthToken from '../utils/setAuthToken';
-const baseUrl = ''
+  CLEAR_DATA,
+} from "./types";
+import { setAlert } from "./alert";
+import setAuthToken from "../utils/setAuthToken";
+const baseUrl = "";
 
 export const loadUser = () => async (dispatch) => {
   //Set token from localStorage in browser
@@ -25,7 +25,7 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     dispatch({
       type: AUTH_ERROR,
     });
@@ -36,7 +36,7 @@ export const loadUser = () => async (dispatch) => {
 export const login = (username, password) => async (dispatch) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
   const body = JSON.stringify({ username, password });
@@ -48,12 +48,12 @@ export const login = (username, password) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (err) {
-    console.log(err.response)
+    console.log(err.response);
     var message;
-    message = !err.response.data.message ? 'Server error. Please try again later.' : err.response.data.message
-    dispatch(
-      setAlert(message, 'info')
-    );
+    message = !err.response.data.message
+      ? "Server error. Please try again later."
+      : err.response.data.message;
+    dispatch(setAlert(message, "info"));
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -68,4 +68,5 @@ export const logout = () => async (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
+  document.location.href = "/";
 };
