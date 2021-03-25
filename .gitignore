@@ -2,4 +2,3 @@ node_modules/
 .history/
 .env
 client/.DS_Store
-./client/build
