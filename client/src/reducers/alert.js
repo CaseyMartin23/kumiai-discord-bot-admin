@@ -2,7 +2,7 @@ import {
   SET_ALERT,
   REMOVE_ALERT,
   REMOVE_CURRENT_ALERT,
-} from '../actions/types.js';
+} from "../actions/types.js";
 
 const initialState = [];
 

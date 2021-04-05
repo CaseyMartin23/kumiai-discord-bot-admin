@@ -32,7 +32,6 @@ const Dashboard = ({
 
   // on select value change
   useEffect(() => {
-    console.log(selectValue);
     getData(selectValue);
   }, [selectValue]);
 
@@ -107,7 +106,7 @@ const Dashboard = ({
             ...prevState,
             [`${selectValue}-${d._id}-rankName`]: d.rankName,
           }));
-        if (d.pointsRequired)
+        if (d.pointsRequired || d.pointsRequired === 0)
           setValues((prevState) => ({
             ...prevState,
             [`${selectValue}-${d._id}-pointsRequired`]: d.pointsRequired,
@@ -264,9 +263,12 @@ const Dashboard = ({
                   </Button>
                 </div>
 
-                {data.map((d) => {
+                {data.map((d, index) => {
                   return (
-                    <div className="rank-item">
+                    <div
+                      key={`${d._id}-${index}-${d.rankName}`}
+                      className="rank-item"
+                    >
                       {d.rankName && (
                         <div>
                           {" "}
@@ -279,7 +281,7 @@ const Dashboard = ({
                           />{" "}
                         </div>
                       )}
-                      {d.pointsRequired && (
+                      {(d.pointsRequired || d.pointsRequired === 0) && (
                         <div>
                           {" "}
                           <p>Points Needed: </p>{" "}
