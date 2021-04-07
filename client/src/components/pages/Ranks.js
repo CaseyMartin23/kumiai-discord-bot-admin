@@ -96,7 +96,6 @@ const Ranks = () => {
     setNewRankMaxPoints(undefined);
     setNewRankId(undefined);
     message.success("Rank successfully created.");
-    setRanks([]);
   };
 
   const handleShowDeleteModal = (id) => {
@@ -146,7 +145,13 @@ const Ranks = () => {
                     onChange={(e) => setNewRankId(e.target.value)}
                     value={newRankId}
                   />
-                  <Button type="primary" onClick={() => submitRank()}>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      submitRank();
+                      setRanks([]);
+                    }}
+                  >
                     Create
                   </Button>
                 </div>
