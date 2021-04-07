@@ -122,6 +122,7 @@ const Users = () => {
                     </div>
                   )}
                   <Button
+                    className="update-controls"
                     type="primary"
                     onClick={() =>
                       updateHandler({
