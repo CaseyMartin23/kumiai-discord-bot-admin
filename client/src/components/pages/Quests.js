@@ -153,6 +153,7 @@ const Quests = () => {
                     )}
                     <br />
                     <Button
+                      className="update-controls"
                       type="primary"
                       onClick={() =>
                         updateHandler({
