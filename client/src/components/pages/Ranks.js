@@ -95,7 +95,7 @@ const Ranks = () => {
     setNewRankMinPoints(undefined);
     setNewRankMaxPoints(undefined);
     setNewRankId(undefined);
-    setRanks([]);
+    // setRanks([]);
     return message.success("Rank successfully created.");
   };
 
