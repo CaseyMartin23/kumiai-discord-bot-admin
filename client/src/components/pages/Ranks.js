@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { message, Input, Button, Modal } from "antd";
-import { deleteData, createRank } from "../../actions/data";
 
-import { getData, updateData } from "../../api";
+import { createRank, deleteData, getData, updateData } from "../../api";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { isEqual } from "lodash";
@@ -10,10 +9,12 @@ import "../../styles/Dashboard.css";
 
 const Ranks = () => {
   const [newRankName, setNewRankName] = useState(undefined);
-  const [newRankPoints, setNewRankPoints] = useState(undefined);
+  const [newRankMaxPoints, setNewRankMaxPoints] = useState(undefined);
+  const [newRankMinPoints, setNewRankMinPoints] = useState(undefined);
   const [newRankId, setNewRankId] = useState(undefined);
   const [rankId, setRankId] = useState(undefined);
   const [showDeleteRank, setShowDeleteRank] = useState(false);
+  const [updatedRanks, setUpdatedRanks] = useState([]);
   const [ranks, setRanks] = useState([]);
   const [loading, setLoading] = useState(false);
   const selectValue = "ranks";
@@ -26,6 +27,7 @@ const Ranks = () => {
         const allRanks = await getData(selectValue);
         if (!isEqual(allRanks, ranks)) {
           setRanks(allRanks);
+          setUpdatedRanks(allRanks);
         }
 
         setLoading(false);
@@ -35,14 +37,20 @@ const Ranks = () => {
       }
     };
     getRanks();
-  }, []);
+  }, [ranks]);
 
-  const handleChange = (e) => {
-    const { name, value, id } = e.target;
+  const handleChange = (e, id) => {
+    let { name, value } = e.target;
 
-    const currentRankId = id.split("-")[0];
-    const updatedRanks = ranks.map((rank) => {
-      if (rank._id === currentRankId) {
+    if (
+      (name === "pointsRequired" || name === "maxPoints") &&
+      parseInt(value)
+    ) {
+      value = parseInt(value);
+    }
+
+    const newRanks = updatedRanks.map((rank) => {
+      if (rank._id === id) {
         return {
           ...rank,
           [name]: value,
@@ -51,14 +59,14 @@ const Ranks = () => {
       return rank;
     });
 
-    setRanks(updatedRanks);
+    setUpdatedRanks(newRanks);
   };
 
   const updateHandler = async (data) => {
     // select, type
     try {
       const { select, id } = data;
-      const [newVal] = ranks.filter((rank) => rank._id === id);
+      const [newVal] = updatedRanks.filter((rank) => rank._id === id);
       console.log("newVal->", newVal);
 
       // make update request
@@ -71,20 +79,23 @@ const Ranks = () => {
   };
 
   const submitRank = () => {
-    if (!newRankName || !newRankPoints || !newRankId)
+    if (!newRankName || !newRankMinPoints || !newRankMaxPoints || !newRankId)
       return message.error("Please fill out all fields.");
     const data = {
       type: selectValue,
       rank: {
         rankName: newRankName,
-        pointsRequired: newRankPoints,
+        pointsRequired: newRankMinPoints,
+        maxPoints: newRankMaxPoints,
         roleId: newRankId,
       },
     };
     createRank(data);
     setNewRankName(undefined);
-    setNewRankPoints(undefined);
+    setNewRankMinPoints(undefined);
+    setNewRankMaxPoints(undefined);
     setNewRankId(undefined);
+    setRanks([]);
     return message.success("Rank successfully created.");
   };
 
@@ -100,6 +111,7 @@ const Ranks = () => {
   const handleOkDeleteModal = () => {
     deleteData({ type: selectValue, id: rankId });
     setShowDeleteRank(false);
+    setRanks([]);
     return message.success("Rank has been deleted.");
   };
   return (
@@ -120,9 +132,14 @@ const Ranks = () => {
                     value={newRankName}
                   />
                   <Input
-                    placeholder="New Rank Points Required"
-                    onChange={(e) => setNewRankPoints(e.target.value)}
-                    value={newRankPoints}
+                    placeholder="New Rank Minimun Points Required"
+                    onChange={(e) => setNewRankMinPoints(e.target.value)}
+                    value={newRankMinPoints}
+                  />
+                  <Input
+                    placeholder="New Rank Maximum Points Required"
+                    onChange={(e) => setNewRankMaxPoints(e.target.value)}
+                    value={newRankMaxPoints}
                   />
                   <Input
                     placeholder="New Rank Role ID"
@@ -145,10 +162,13 @@ const Ranks = () => {
                           {" "}
                           <p>Rank Name: </p>{" "}
                           <Input
-                            id={`${rank._id}-${rank.rankName}`}
                             placeholder="Rank Name"
-                            onChange={handleChange}
-                            value={rank.rankName}
+                            onChange={(e) => handleChange(e, rank._id)}
+                            value={
+                              rank.rankName !== updatedRanks[index].rankName
+                                ? updatedRanks[index].rankName
+                                : rank.rankName
+                            }
                             name="rankName"
                           />{" "}
                         </div>
@@ -156,13 +176,33 @@ const Ranks = () => {
                       {(rank.pointsRequired || rank.pointsRequired === 0) && (
                         <div>
                           {" "}
-                          <p>Points Needed: </p>{" "}
+                          <p>Minimum Points Needed: </p>{" "}
                           <Input
-                            id={`${rank._id}-${rank.pointsRequired}`}
-                            placeholder="Points Required"
-                            onChange={handleChange}
-                            value={rank.pointsRequired}
+                            placeholder="Minimun Points Required"
+                            onChange={(e) => handleChange(e, rank._id)}
+                            value={
+                              rank.pointsRequired !==
+                              updatedRanks[index].pointsRequired
+                                ? updatedRanks[index].pointsRequired
+                                : rank.pointsRequired
+                            }
                             name="pointsRequired"
+                          />{" "}
+                        </div>
+                      )}
+                      {(rank.maxPoints || rank.maxPoints === 0) && (
+                        <div>
+                          {" "}
+                          <p>Maximum Points Needed: </p>{" "}
+                          <Input
+                            placeholder="Maximum Points Required"
+                            onChange={(e) => handleChange(e, rank._id)}
+                            value={
+                              rank.maxPoints !== updatedRanks[index].maxPoints
+                                ? updatedRanks[index].maxPoints
+                                : rank.maxPoints
+                            }
+                            name="maxPoints"
                           />{" "}
                         </div>
                       )}
@@ -171,10 +211,13 @@ const Ranks = () => {
                           {" "}
                           <p>Rank Role ID: </p>{" "}
                           <Input
-                            id={`${rank._id}-${rank.roleId}`}
                             placeholder="Role ID"
-                            onChange={handleChange}
-                            value={rank.roleId}
+                            onChange={(e) => handleChange(e, rank._id)}
+                            value={
+                              rank.roleId !== updatedRanks[index].roleId
+                                ? updatedRanks[index].roleId
+                                : rank.roleId
+                            }
                             name="roleId"
                           />{" "}
                         </div>

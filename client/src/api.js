@@ -16,10 +16,26 @@ export const updateData = async (updatedData) => {
   //check to see if user is valid
   try {
     console.log("update data called");
-    const res = await axios.put("/api/data", updatedData);
+    await axios.put("/api/data", updatedData);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-    console.log("res->", res);
-    // return
+export const deleteData = async (data) => {
+  //check to see if user is valid
+  try {
+    await axios.delete(`/api/data/${data.type}/${data.id}`);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const createRank = async (data) => {
+  //check to see if user is valid
+  try {
+    console.log(data);
+    await axios.post("/api/data", data);
   } catch (err) {
     console.log(err);
   }
