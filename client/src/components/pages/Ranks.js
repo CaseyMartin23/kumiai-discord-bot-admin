@@ -95,8 +95,8 @@ const Ranks = () => {
     setNewRankMinPoints(undefined);
     setNewRankMaxPoints(undefined);
     setNewRankId(undefined);
-    // setRanks([]);
-    return message.success("Rank successfully created.");
+    message.success("Rank successfully created.");
+    setRanks([]);
   };
 
   const handleShowDeleteModal = (id) => {
