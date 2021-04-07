@@ -1,41 +1,69 @@
-import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import "../../styles/Navbar.css";
 
 function Navbar({ logout, auth: { isAuthenticated } }) {
-  const authLinks = (
-    <ul className="ul-links">
-      <li>
-        <p onClick={logout} className="hide-sm" className="logout-link">
-          Logout
-        </p>{" "}
-      </li>
-    </ul>
-  );
-
-  const guestLinks = (
-    <ul className="ul-links">
-      <li>
-        <p></p>
-      </li>
-    </ul>
-  );
-
   return (
-    <nav className="navbar">
-      <div className="navbar-content">
-        <p className="navbar-title">
-          <Link to="/">
-            <p>Kumiai Admin</p>
-          </Link>
-        </p>
-        {/* If not loading, evaluate fragment */}
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      </div>
-    </nav>
+    <Fragment>
+      <nav className="navbar">
+        <div className="navbar-content">
+          <span className="navbar-title">
+            <Link to="/" className="title-link">
+              Kumiai Admin
+            </Link>
+          </span>
+          {isAuthenticated && (
+            <>
+              <div>
+                <ul id="unordered-list" className="ul-links">
+                  <NavLink
+                    to="/dashboard/ranks"
+                    className="nav-links"
+                    activeClassName="active"
+                  >
+                    Ranks
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/quests"
+                    className="nav-links"
+                    activeClassName="active"
+                  >
+                    Quests
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/achievements"
+                    className="nav-links"
+                    activeClassName="active"
+                  >
+                    Achievements
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/users"
+                    className="nav-links"
+                    activeClassName="active"
+                  >
+                    Users
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/passive-tasks"
+                    className="nav-links"
+                    activeClassName="active"
+                  >
+                    Passive Tasks
+                  </NavLink>
+                </ul>
+              </div>
+              <button id="logout-button" onClick={logout}>
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </nav>
+    </Fragment>
   );
 }
 

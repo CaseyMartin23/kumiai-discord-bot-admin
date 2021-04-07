@@ -1,42 +1,48 @@
-import axios from 'axios';
-import data from '../reducers/data';
+import axios from "axios";
+import data from "../reducers/data";
 import {
-    DATA_SUCCESS,
-    CLEAR_DATA,
-    DATA_UPDATE,
-    DATA_DELETE,
-    DATA_CREATE
-} from './types';
+  DATA_SUCCESS,
+  CLEAR_DATA,
+  DATA_UPDATE,
+  DATA_DELETE,
+  DATA_CREATE,
+} from "./types";
 
-const baseUrl = ''
+const baseUrl = "";
 
 export const getData = (type) => async (dispatch) => {
   //check to see if user is valid
+  console.log("getData-type->", type);
   try {
     const res = await axios.get(`${baseUrl}/api/data/${type}`);
-    dispatch({
-      type: DATA_SUCCESS,
-      payload: res.data,
-    });
+    console.log("res->", res);
+
+    // dispatch({
+    //   type: DATA_SUCCESS,
+    //   payload: res.data,
+    // });
+    // const { data } = res
+
+    return res.data;
   } catch (err) {
-    console.log(err)
-    dispatch({
-      type: CLEAR_DATA,
-    });
+    console.log(err);
+    // dispatch({
+    //   type: CLEAR_DATA,
+    // });
   }
 };
 
 export const updateData = (d) => async (dispatch) => {
   //check to see if user is valid
   try {
-    console.log('update data called')
+    console.log("update data called");
     const res = await axios.put(`${baseUrl}/api/data`, d);
     dispatch({
       type: DATA_UPDATE,
       payload: res.data,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     dispatch({
       type: CLEAR_DATA,
     });
@@ -46,13 +52,15 @@ export const updateData = (d) => async (dispatch) => {
 export const deleteData = (data) => async (dispatch) => {
   //check to see if user is valid
   try {
-    const res = await axios.delete(`${baseUrl}/api/data/${data.type}/${data.id}`);
+    const res = await axios.delete(
+      `${baseUrl}/api/data/${data.type}/${data.id}`
+    );
     dispatch({
       type: DATA_DELETE,
       payload: res.data,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     dispatch({
       type: CLEAR_DATA,
     });
@@ -69,7 +77,7 @@ export const createRank = (data) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     dispatch({
       type: CLEAR_DATA,
     });
