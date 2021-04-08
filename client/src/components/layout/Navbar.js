@@ -47,13 +47,6 @@ function Navbar({ logout, auth: { isAuthenticated } }) {
                   >
                     Users
                   </NavLink>
-                  <NavLink
-                    to="/dashboard/passive-tasks"
-                    className="nav-links"
-                    activeClassName="active"
-                  >
-                    Passive Tasks
-                  </NavLink>
                 </ul>
               </div>
               <button id="logout-button" onClick={logout}>
