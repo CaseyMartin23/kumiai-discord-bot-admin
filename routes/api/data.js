@@ -8,7 +8,6 @@ const QuestTemplates = require("../../models/QuestTemplates");
 const Rank = require("../../models/Rank");
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
-const Passive = require("../../models/Passive");
 
 router.get("/:type", async (req, res) => {
   const queryType = req.params.type;
@@ -21,8 +20,6 @@ router.get("/:type", async (req, res) => {
     data = await AchievementTemplate.find();
   } else if (queryType === "users") {
     data = await User.find();
-  } else if (queryType === "passive") {
-    data = await Passive.find();
   }
   if (!data) {
     return res
@@ -67,10 +64,7 @@ router.put("/", async (req, res) => {
     updatedDoc = await User.findOneAndUpdate({ _id: id }, newVal, {
       new: true,
     });
-  } else if (select === "passive") {
-    console.log(updatedDoc);
   }
-
   if (!updatedDoc) {
     return res
       .status(400)
